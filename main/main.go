@@ -1,11 +1,10 @@
 package main
 
 import (
+	"Kutkh/decorator"
+	"Kutkh/pipeline"
 	"fmt"
 	"strconv"
-
-	"awesomeProject/decorator"
-	"awesomeProject/pipeline"
 )
 
 func main() {
@@ -16,12 +15,10 @@ func main() {
 	//excute
 	p.Execute()
 
-
 	mybar := bar
 	logDecorator := decorator.Log{}
 	logDecorator.Decorator(&mybar, bar)
 	mybar("hello,", "world!")
-
 
 	fmt.Println()
 }
@@ -37,12 +34,11 @@ func gob(ctx pipeline.Context) pipeline.Result {
 	return result
 }
 
-
 func addNum(ctx pipeline.Context) pipeline.Result {
 	//process
-	a,_ := ctx.Value("a")
-	b,_ := ctx.Value("b")
-	c := a.(int)+b.(int)
+	a, _ := ctx.Value("a")
+	b, _ := ctx.Value("b")
+	c := a.(int) + b.(int)
 	//build result
 	result := pipeline.NewResult()
 	result.SetResult("c", c)
@@ -52,7 +48,7 @@ func addNum(ctx pipeline.Context) pipeline.Result {
 
 func toString(ctx pipeline.Context) pipeline.Result {
 	//process
-	c,_ := ctx.Value("c")
+	c, _ := ctx.Value("c")
 	s := strconv.Itoa(c.(int))
 	//build result
 	result := pipeline.NewResult()
@@ -61,15 +57,12 @@ func toString(ctx pipeline.Context) pipeline.Result {
 	return result
 }
 
-func  printfString(ctx pipeline.Context) pipeline.Result {
+func printfString(ctx pipeline.Context) pipeline.Result {
 	fmt.Println("print")
-	s,_ := ctx.Value("s")
+	s, _ := ctx.Value("s")
 	fmt.Println("output = " + s.(string))
 	return pipeline.Result{}
 }
-
-
-
 
 func foo(a, b, c int) int {
 	fmt.Printf("%d, %d, %d \n", a, b, c)
@@ -79,5 +72,3 @@ func bar(a, b string) string {
 	fmt.Printf("%s, %s \n", a, b)
 	return a + b
 }
-
-
