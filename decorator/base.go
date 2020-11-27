@@ -2,7 +2,7 @@ package decorator
 
 /**
   a simple decorator
- */
+*/
 import (
 	"reflect"
 )
@@ -28,4 +28,12 @@ func (self *Base) Decorator(decoPtr, fn interface{}) (err error) {
 		})
 	decoratedFunc.Set(v)
 	return
+}
+
+func (self *Base) before() {
+
+}
+
+func (self *Base) after() {
+
 }
