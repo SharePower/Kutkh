@@ -1,36 +1,34 @@
 package pipeline
 
 import (
-	"awesomeProject/util"
+	"Kutkh/util"
 )
-
 
 type Handler struct {
 	method         func(c Context) Result
 	parallelMethod []func(c Context) Result
 	context        Context
 	nextPipeline   *Handler
-	err error
+	err            error
 }
 
-
-type  Result struct {
+type Result struct {
 	result util.Values
-	err  error
+	err    error
 }
 
-type  Param struct {
+type Param struct {
 	param util.Values
 }
 
-func (p *Handler) Next(f func(param Context) Result)(res *Handler){
+func (p *Handler) Next(f func(param Context) Result) (res *Handler) {
 	next := NewHandler()
 	next.method = f
 	p.nextPipeline = next
 	return next
 }
 
-func  (p *Handler) ParallelNext(functions ... func(c Context) Result)(res *Handler) {
+func (p *Handler) ParallelNext(functions ...func(c Context) Result) (res *Handler) {
 	next := NewHandler()
 	next.parallelMethod = functions
 	p.nextPipeline = next
@@ -38,7 +36,7 @@ func  (p *Handler) ParallelNext(functions ... func(c Context) Result)(res *Handl
 }
 
 func NewHandler() *Handler {
-	p :=  &Handler{}
+	p := &Handler{}
 	p.context = Context{}
 	p.context.param = make(map[string]interface{})
 	p.context.result = make(map[string]interface{})
@@ -51,12 +49,10 @@ func NewResult() Result {
 	return p
 }
 
-
-
-func (self *Handler) SetValue(key string, value interface{})  {
+func (self *Handler) SetValue(key string, value interface{}) {
 	self.context.Param.param[key] = value
 }
 
-func (self *Result) SetResult(key string, value interface{})  {
+func (self *Result) SetResult(key string, value interface{}) {
 	self.result[key] = value
 }
