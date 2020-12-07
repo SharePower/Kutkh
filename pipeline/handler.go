@@ -1,7 +1,7 @@
 package pipeline
 
 import (
-	"Kutkh/util"
+	"github.com/Kutkh/constants"
 )
 
 type Handler struct {
@@ -13,12 +13,12 @@ type Handler struct {
 }
 
 type Result struct {
-	result util.Values
+	result constants.Values
 	err    error
 }
 
 type Param struct {
-	param util.Values
+	param constants.Values
 }
 
 func (p *Handler) Next(f func(param Context) Result) (res *Handler) {
