@@ -1,10 +1,11 @@
 package main
 
 import (
-	"Kutkh/decorator"
-	"Kutkh/pipeline"
 	"fmt"
 	"strconv"
+
+	"github.com/Kutkh/decorator"
+	"github.com/Kutkh/pipeline"
 )
 
 func main() {
