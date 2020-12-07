@@ -1,4 +1,4 @@
-package util
+package constants
 
 
 type Values map[string]interface{}
