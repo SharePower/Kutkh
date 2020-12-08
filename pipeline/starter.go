@@ -1,12 +1,13 @@
 package pipeline
 
+// Starter the handler starter
 type Starter struct {
 	Handler
 }
 
 func (p *Starter) Execute() {
 
-	nextContext := Context{}
+	nextContext := KutkhContext{}
 	nextContext.param = p.context.param
 
 	for p.nextPipeline != nil {
@@ -46,7 +47,7 @@ func (p *Starter) Execute() {
 
 func NewStarter() *Starter {
 	p := &Starter{}
-	p.context = Context{}
+	p.context = KutkhContext{}
 	p.context.param = make(map[string]interface{})
 	p.context.result = make(map[string]interface{})
 	return p
