@@ -5,9 +5,9 @@ import (
 )
 
 type Handler struct {
-	method         func(c Context) Result
-	parallelMethod []func(c Context) Result
-	context        Context
+	method         func(c KutkhData) Result
+	parallelMethod []func(c KutkhData) Result
+	context        KutkhData
 	nextPipeline   *Handler
 	err            error
 }
@@ -21,14 +21,14 @@ type Param struct {
 	param constants.Values
 }
 
-func (p *Handler) Next(f func(param Context) Result) (res *Handler) {
+func (p *Handler) Next(f func(param KutkhData) Result) (res *Handler) {
 	next := NewHandler()
 	next.method = f
 	p.nextPipeline = next
 	return next
 }
 
-func (p *Handler) ParallelNext(functions ...func(c Context) Result) (res *Handler) {
+func (p *Handler) ParallelNext(functions ...func(c KutkhData) Result) (res *Handler) {
 	next := NewHandler()
 	next.parallelMethod = functions
 	p.nextPipeline = next
@@ -37,7 +37,7 @@ func (p *Handler) ParallelNext(functions ...func(c Context) Result) (res *Handle
 
 func NewHandler() *Handler {
 	p := &Handler{}
-	p.context = Context{}
+	p.context = KutkhData{}
 	p.context.param = make(map[string]interface{})
 	p.context.result = make(map[string]interface{})
 	return p

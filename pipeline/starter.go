@@ -7,7 +7,7 @@ type Starter struct {
 
 func (p *Starter) Execute() {
 
-	nextContext := KutkhContext{}
+	nextContext := KutkhData{}
 	nextContext.param = p.context.param
 
 	for p.nextPipeline != nil {
@@ -47,7 +47,7 @@ func (p *Starter) Execute() {
 
 func NewStarter() *Starter {
 	p := &Starter{}
-	p.context = KutkhContext{}
+	p.context = KutkhData{}
 	p.context.param = make(map[string]interface{})
 	p.context.result = make(map[string]interface{})
 	return p
