@@ -8,14 +8,20 @@ import (
 	"github.com/Kutkh/pipeline"
 )
 
+// a sample demo help you know with Kutkh
+
 func main() {
+
 	//build pipeline
 	p := pipeline.NewStarter()
+
 	// test method
 	p.ParallelNext(goa, gob).Next(addNum).Next(toString).Next(printfString)
+
 	//excute
 	p.Execute()
 
+	//todo @caitiezhu
 	mybar := bar
 	logDecorator := decorator.Log{}
 	logDecorator.Decorator(&mybar, bar)
@@ -23,19 +29,19 @@ func main() {
 
 	fmt.Println()
 }
-func goa(ctx pipeline.Context) pipeline.Result {
+func goa(ctx pipeline.KutkhData) pipeline.Result {
 	result := pipeline.NewResult()
 	result.SetResult("a", 1)
 	return result
 }
 
-func gob(ctx pipeline.Context) pipeline.Result {
+func gob(ctx pipeline.KutkhData) pipeline.Result {
 	result := pipeline.NewResult()
 	result.SetResult("b", 9)
 	return result
 }
 
-func addNum(ctx pipeline.Context) pipeline.Result {
+func addNum(ctx pipeline.KutkhData) pipeline.Result {
 	//process
 	a, _ := ctx.Value("a")
 	b, _ := ctx.Value("b")
@@ -47,7 +53,7 @@ func addNum(ctx pipeline.Context) pipeline.Result {
 	return result
 }
 
-func toString(ctx pipeline.Context) pipeline.Result {
+func toString(ctx pipeline.KutkhData) pipeline.Result {
 	//process
 	c, _ := ctx.Value("c")
 	s := strconv.Itoa(c.(int))
@@ -58,7 +64,7 @@ func toString(ctx pipeline.Context) pipeline.Result {
 	return result
 }
 
-func printfString(ctx pipeline.Context) pipeline.Result {
+func printfString(ctx pipeline.KutkhData) pipeline.Result {
 	fmt.Println("print")
 	s, _ := ctx.Value("s")
 	fmt.Println("output = " + s.(string))
